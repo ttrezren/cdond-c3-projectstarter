@@ -147,7 +147,7 @@ jobs:
           command: |
             aws cloudformation deploy \
               --template-file .circleci/files/frontend.yml \
-              --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
       - run:
@@ -155,9 +155,9 @@ jobs:
           command: |
             echo [default] > inventory.txt
             aws ec2 describe-instances \                                         
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --instance-ids "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --output text >> inventory.txt
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+              --instance-ids "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --output text >> inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
